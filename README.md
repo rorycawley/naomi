@@ -24,12 +24,14 @@ dotnet new gitignore
 
 Create the projects:
 dotnet new webapi -o GymManagement.Api
+dotnet new classlib -o GymManagement.Contracts
 dotnet new classlib -o GymManagement.Application
 dotnet new classlib -o GymManagement.Infrastructure
 dotnet new classlib -o GymManagement.Domain
 
 Create the references, which are the layer dependencies:
 dotnet add GymManagement.Api reference GymManagement.Application
+dotnet add GymManagement.Api reference GymManagement.Contracts
 dotnet add GymManagement.Infrastructure reference GymManagement.Application
 dotnet add GymManagement.Application reference GymManagement.Domain
 
@@ -41,3 +43,10 @@ dotnet sln add **/**.csproj
 
 Build the solution:
 dotnet build
+
+Run the API project:
+dotnet run --project src/GymManagement.Api
+
+The implementations can change but as long as the contracts don't change the API clients should be unaffected.
+
+Presentation Layer handles the interactions with the outside world, it translates data from the representation to the language of the application core logic. Managed UI and framework related elements.
